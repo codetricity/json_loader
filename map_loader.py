@@ -18,6 +18,8 @@ class Loader():
         self.layers = mapdict["layers"]
         self.screenwidth = screensize[0]
         self.screenheight = screensize[1]
+        #self.mapwidth = self.width * self.tilewidth
+        #self.mapheight = self.height * self.tileheight
 
     def load_tiles(self):
         all_tiles = []
@@ -94,8 +96,16 @@ class Loader():
                 collidetile.top += speed
             elif direction == "down":
                 collidetile.bottom -= speed
-
         return (rect, collide_rects)
+
+    def initialize_map(self, offset, rect, collide_rects):
+        rect.bottom = rect.bottom + offset[1]
+        rect.left = rect.left + offset[0]
+        for collidetile in collide_rects:
+            collidetile.bottom += offset[1]
+            collidetile.left += offset[0]
+        return(rect, collide_rects)
+
 
     def check_boundary(self, rect):
         self.hit_boundary = None

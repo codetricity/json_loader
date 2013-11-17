@@ -20,6 +20,7 @@ class Hero(pygame.sprite.Sprite):
         #self.rect.center = (self.screenwidth / 2,
         #                    self.screenheight /2)
         self.rect.center = (self.screenwidth / 2, 50)
+        # self.rect.center = (240, 160)
         self.speed = 2
 
     def update(self, direction):
@@ -53,6 +54,8 @@ class Hero(pygame.sprite.Sprite):
 SCREENSIZE = (480, 320)
 SCREEN = pygame.display.set_mode(SCREENSIZE)
 RED = (255, 0, 0)
+# the offset is the start position of the map and character
+offset = (-270, -1400)
 
 pygame.init()
 
@@ -63,6 +66,8 @@ if android:
 clock = pygame.time.Clock()
 
 loader = Loader("test_map.json", SCREENSIZE)
+#mapheight = loader.mapheight
+#mapwidth = loader.mapwidth
 hero = Hero(SCREENSIZE)
 
 all_layers, collide_rects = loader.load_layers()
@@ -73,10 +78,15 @@ collision_tile.fill(RED)
 
 layer_rect = all_layers[0].get_rect()
 #layer_rect.center = SCREEN.get_rect().center
+#layer_rect.bottom = mapheight
 
 direction = "stop"
 collide = False
 previous_direction = "stop"
+
+
+layer_rect, collide_rects = loader.initialize_map(offset, layer_rect, collide_rects)
+
 
 while True:
     if android:
