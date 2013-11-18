@@ -2,16 +2,28 @@ json_loader
 ===========
 Example python json map loader for Tiled maps saved in json format.  The graphics mouse io are handled by Pygame.  the application is loaded onto Android phones with Pygame Subset for Android.
 
-Click on the link below to see an example of the lesson running on Samsung Android phone.
+Click on the link below to see a video of the lesson's example code running on a Samsung Android phone.
 
 http://youtu.be/tJ_O48oTpxk
 
-This example was developed as part of the teaching curriculum for my 14 year old son.  
+The example was developed as part of the teaching curriculum for my 14 year old son.  
 
 I originally created a video for him to learn how to use Tiled.  When I put it up on YouTube, several people commented on it and wanted the code for the example.  I decided to put the code up so that I could share it with people that watched the video.  This is the second version of the JSON loader code.  
-
-Note that Pygame Subset for Android (pgs4a) doesn't work with the XML libraries and won't work with Tiled TMX Loader.  
 
 In order to progress in our lesson and get some 2D game development experience, I have my son working on a JSON loader.  The lessons seem to be working so far.
 
 http://pychildren.blogspot.com/2013/08/tiled-json-map-loader-example-code.html
+
+To use this lesson, you will need:
+
+ - Python
+ - Pygame http://www.pygame.org/
+ - Pygame Subset for Android http://pygame.renpy.org/
+ - Tiled http://www.mapeditor.org/
+
+If you're not putting the application on Android, you should check out Tiled TMX Loader.  Note that Pygame Subset for Android (pgs4a) doesn't work with the XML libraries and won't work with Tiled TMX Loader.  
+
+Alternative TMX Loaders:
+  - PyTMX https://github.com/bitcraft/PyTMX
+  - pytmxloader https://code.google.com/p/pytmxloader/
+
