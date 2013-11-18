@@ -1,7 +1,10 @@
 json_loader
 ===========
-
 Example python json map loader for Tiled maps saved in json format.  The graphics mouse io are handled by Pygame.  the application is loaded onto Android phones with Pygame Subset for Android.
+
+Click on the link below to see an example of the lesson running on Samsung Android phone.
+
+http://youtu.be/tJ_O48oTpxk
 
 This example was developed as part of the teaching curriculum for my 14 year old son.  
 
