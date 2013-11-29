@@ -1,0 +1,36 @@
+import json, pygame, sys
+
+pygame.init()
+
+SCREEN = pygame.display.set_mode((480, 320))
+
+mapfile = open("map.json")
+jsondata = mapfile.read()
+mapdict = json.loads(jsondata)
+
+mapkeys =mapdict.keys()
+print (mapkeys)
+
+layers = mapdict["layers"]
+tilesets = mapdict["tilesets"]
+
+tilesetdata = tilesets[0]
+tilesetfile = tilesetdata["image"]
+tileset = pygame.image.load(tilesetfile)
+
+tiles = []
+
+for y in range (0, 1024, 32):
+    for x in range (0, 1024, 32):
+        tile = pygame.Surface((32, 32))
+        tile.blit(tileset, (0, 0), (x, y, 32, 32)))
+        tiles.append(tile)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    pygame.display.update()
+
+
