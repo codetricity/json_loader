@@ -25,6 +25,12 @@ import pprint
 
 RUNTEST = True
 
+# small map with no collision
+# json_filename = "map.json"
+
+#larger map with collision
+json_filename = "larger_map.json"
+
 def load_map(filename):
     """
     This takes a file written with Tiled that contains maps in JSON format.
@@ -45,7 +51,7 @@ class Tileset():
     keys.  This contains a list of dictionaries, one element for each tileset.
     Each tileset is an image, often in PNG format, that contains many pictures of objects such as
     trees, grass, rocks, fences, and water.  Each tile in the set is usually a square that is 32x32
-    pixels.  The size of each tile could be bigger or larger than 32.
+    pixels.  The size of each tile could be bigger or smaller than 32.
 
     This class will slice up the tilesheet into individual tiles and then stare each tile into a
     list.
@@ -97,6 +103,7 @@ class Layer():
         combined_layers = pygame.Surface((self.mapwidth, self.mapheight))
         collision_list = []
         layer_num = 1
+
         for layer in self.layers:
             full_map_surface = pygame.Surface((self.width * self.tilewidth, self.height * self.tileheight))
             data = layer["data"]
@@ -113,23 +120,29 @@ class Layer():
                                     collision_rect = pygame.Rect(x, y, 32, 32)
                                     collision_list.append(collision_rect)
                                 collision_index +=1
-            x = 0
-            y = 0
-            for id in data:
-                if id != 0:
-                    gid = id -1
-                    full_map_surface.blit(self.tiles[gid], (x, y))
-                if x < self.width * (self.tilewidth -1):
-                    x += self.tilewidth
-                else:
-                    x = 0
-                    y += self.tileheight
-            #pygame.image.save(full_map_surface, "layer_{}.png".format(layer_num))
-            full_map_surface.set_colorkey((0,0,0))
-            combined_layers.blit(full_map_surface, (0,0))
-            #pygame.image.save(combined_layers, "map_output.png")
 
+            current_layer = pygame.Surface((self.mapwidth, self.mapheight))
+            tile_index = 0
+            for y in range (0, self.mapheight, 32):
+                for x in range (0, self.mapwidth, 32):
+                    #print (tile_index)
+                    if data[tile_index] != 0:
+                        gid = data[tile_index] - 1
+                        print(gid)
+                        tile = self.tiles[gid].convert_alpha()
+
+                        current_layer.blit(self.tiles[gid], (x, y))
+                    if tile_index < len(data) -1:
+                        tile_index += 1
+
+            current_layer.set_colorkey((0,0,0))
+            pygame.image.save(current_layer, "test_output/layer_{}.png".format(layer_num))
+            combined_layers.blit(current_layer, (0, 0))
             layer_num += 1
+
+        pygame.image.save(combined_layers, "test_output/map_output.png")
+
+
         return(combined_layers, collision_list)
 
     def calculate_map_boundary(self):
@@ -255,7 +268,8 @@ def main():
     direction = "stop"
 
 
-    mapdict = load_map("larger_map.json")
+
+    mapdict = load_map(json_filename)
     tilesets = Tileset(mapdict)
 
     tileset_images = tilesets.load()
@@ -291,11 +305,12 @@ def main():
 
         SCREEN.blit(combined_layers, pos)
 
-        for rect in collision_list:
-            tile = pygame.Surface((32, 32))
-            tile.fill((255, 0, 0))
-            tile.set_alpha(70)
-            SCREEN.blit(tile, rect)
+        if RUNTEST:
+            for rect in collision_list:
+                tile = pygame.Surface((32, 32))
+                tile.fill((255, 0, 0))
+                tile.set_alpha(70)
+                SCREEN.blit(tile, rect)
 
         SCREEN.blit(player, player_rect)
 
