@@ -26,10 +26,12 @@ import pprint
 RUNTEST = True
 
 # small map with no collision
-# json_filename = "map.json"
+# json_filename = "maps/map.json"
 
 #larger map with collision
-json_filename = "larger_map.json"
+json_filename = "maps/larger_map.json"
+
+# json_filename = "maps/test_map.json"
 
 def load_map(filename):
     """
@@ -78,8 +80,10 @@ class Tileset():
         """
         tiles = []
         for tileset_image in tileset_images:
-            for y in range (0, 1024, 32):
-                for x in range (0, 1024, 32):
+            tileset_width = tileset_image.get_width()
+            tileset_height = tileset_image.get_height()
+            for y in range (0, tileset_height, 32):
+                for x in range (0, tileset_width, 32):
                     rect = pygame.Rect(x, y, 32, 32)
                     tile = tileset_image.subsurface(rect)
                     tiles.append(tile)
