@@ -95,17 +95,23 @@ class Layer():
         self.tileheight = tiles[0].get_height()
         self.speed = 1
         self.screensize = (480, 320)
-
-
-    def load(self):
         self.mapwidth = self.width * self.tilewidth
         self.mapheight = self.height * self.tileheight
-        combined_layers = pygame.Surface((self.mapwidth, self.mapheight))
-        collision_list = []
-        layer_num = 1
 
+    def load_collision(self):
+        """
+        Look for a user-defined property of the layer called, "collision".
+        If this is found, then add the rectangle to a collision list.
+
+        If the data for the layer contains a zero "0" element, then do not
+        save the blank element to the list.
+
+        Usage: Layer.load_collision()
+
+        Returns: collision_list
+        """
+        collision_list = []
         for layer in self.layers:
-            full_map_surface = pygame.Surface((self.width * self.tilewidth, self.height * self.tileheight))
             data = layer["data"]
             if layer.has_key("properties"):
                 properties = layer["properties"]
@@ -116,19 +122,26 @@ class Layer():
                         for y in range (0, self.mapheight, 32):
                             for x in range (0, self.mapwidth, 32):
                                 if data[collision_index] != 0:
-#                                    print('found collision rectangle')
                                     collision_rect = pygame.Rect(x, y, 32, 32)
                                     collision_list.append(collision_rect)
                                 collision_index +=1
+        return(collision_list)
+
+
+    def load(self):
+        combined_layers = pygame.Surface((self.mapwidth, self.mapheight))
+        layer_num = 1
+
+        for layer in self.layers:
+            full_map_surface = pygame.Surface((self.width * self.tilewidth, self.height * self.tileheight))
+            data = layer["data"]
 
             current_layer = pygame.Surface((self.mapwidth, self.mapheight))
             tile_index = 0
             for y in range (0, self.mapheight, 32):
                 for x in range (0, self.mapwidth, 32):
-                    #print (tile_index)
                     if data[tile_index] != 0:
                         gid = data[tile_index] - 1
-                        print(gid)
                         tile = self.tiles[gid].convert_alpha()
 
                         current_layer.blit(self.tiles[gid], (x, y))
@@ -143,7 +156,7 @@ class Layer():
         pygame.image.save(combined_layers, "test_output/map_output.png")
 
 
-        return(combined_layers, collision_list)
+        return(combined_layers)
 
     def calculate_map_boundary(self):
         """
@@ -158,6 +171,8 @@ class Layer():
         If the player starts off 320 (10 tiles) to the right, the position is [-320, 0].
         If the player is traveling left, the x coordinate pos[0] should never be greater than 0.
         It always needs to be a negative value.
+
+        Does not return any values.
         """
         self.buffer = self.speed + 1
         self.map_right_boundary = self.screensize[0] - self.mapwidth + self.buffer
@@ -282,7 +297,8 @@ def main():
 
     # the default screensize is 480, 320
     layers.screensize = SCREENSIZE
-    combined_layers, collision_list = layers.load()
+    combined_layers = layers.load()
+    collision_list = layers.load_collision()
     for rect in collision_list:
         rect.centerx += starting_position[0]
         rect.centery += starting_position[1]
