@@ -122,7 +122,6 @@ class Layer():
                         for y in range (0, self.mapheight, 32):
                             for x in range (0, self.mapwidth, 32):
                                 if data[collision_index] != 0:
-#                                    print('found collision rectangle')
                                     collision_rect = pygame.Rect(x, y, 32, 32)
                                     collision_list.append(collision_rect)
                                 collision_index +=1
@@ -141,10 +140,8 @@ class Layer():
             tile_index = 0
             for y in range (0, self.mapheight, 32):
                 for x in range (0, self.mapwidth, 32):
-                    #print (tile_index)
                     if data[tile_index] != 0:
                         gid = data[tile_index] - 1
-                        print(gid)
                         tile = self.tiles[gid].convert_alpha()
 
                         current_layer.blit(self.tiles[gid], (x, y))
@@ -174,6 +171,8 @@ class Layer():
         If the player starts off 320 (10 tiles) to the right, the position is [-320, 0].
         If the player is traveling left, the x coordinate pos[0] should never be greater than 0.
         It always needs to be a negative value.
+
+        Does not return any values.
         """
         self.buffer = self.speed + 1
         self.map_right_boundary = self.screensize[0] - self.mapwidth + self.buffer
