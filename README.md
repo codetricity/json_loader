@@ -20,12 +20,12 @@ Usage
 -----
 
 To use this lesson, you will need:
-<ul>
- <li> Python
- <li> Pygame http://www.pygame.org/
- <li> Pygame Subset for Android http://pygame.renpy.org/
- <li> Tiled http://www.mapeditor.org/
-</ul>
+
+* Python
+* Pygame http://www.pygame.org/
+* Pygame Subset for Android http://pygame.renpy.org/
+* Tiled http://www.mapeditor.org/
+
 
 
 execute the sample program with:
