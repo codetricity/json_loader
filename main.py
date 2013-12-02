@@ -23,7 +23,19 @@ Steps to build a 2D tile map game
 import json, pygame, sys
 import pprint
 
+###############################
+## Change RUNTEST to False to 
+## Turn off red squares over the
+## objects with collision.
+
 RUNTEST = True
+
+###############################
+## Map section
+## Change the filename to use another
+## test map or create your own map.
+## use tilesets with 32x32 pixels
+## ############################
 
 # small map with no collision
 # json_filename = "maps/map.json"
@@ -32,6 +44,13 @@ RUNTEST = True
 json_filename = "maps/larger_map.json"
 
 # json_filename = "maps/test_map.json"
+
+#################################
+## Player image.  Change to use 
+## boy.png or any other graphic of
+## similar size
+#################################
+player_filename = "img/girl.png"
 
 def load_map(filename):
     """
@@ -137,17 +156,13 @@ class Layer():
         layer_num = 1
 
         for layer in self.layers:
-            full_map_surface = pygame.Surface((self.width * self.tilewidth, self.height * self.tileheight))
             data = layer["data"]
-
             current_layer = pygame.Surface((self.mapwidth, self.mapheight))
             tile_index = 0
             for y in range (0, self.mapheight, 32):
                 for x in range (0, self.mapwidth, 32):
                     if data[tile_index] != 0:
                         gid = data[tile_index] - 1
-                        tile = self.tiles[gid].convert_alpha()
-
                         current_layer.blit(self.tiles[gid], (x, y))
                     if tile_index < len(data) -1:
                         tile_index += 1
@@ -156,10 +171,7 @@ class Layer():
             pygame.image.save(current_layer, "test_output/layer_{}.png".format(layer_num))
             combined_layers.blit(current_layer, (0, 0))
             layer_num += 1
-
         pygame.image.save(combined_layers, "test_output/map_output.png")
-
-
         return(combined_layers)
 
     def calculate_map_boundary(self):
@@ -252,8 +264,15 @@ def run_test(mapdict):
     returns a pygame.Surface that is the entire tileset.
     """
     mapkeys =mapdict.keys()
+    pp = pprint.PrettyPrinter(indent=4)
+    print ("\n\nThere are usually 9 primary keys in the json file produced by Tiled.\n")
+    print("The keys in your map file are:")
+    pp.pprint(mapkeys)
     tilesets = mapdict["tilesets"]
+    print("\nYour map file uses {} tilesets\n".format(len(tilesets)))
     tilesetdata = tilesets[0]
+    print("The keys in the tileset are:")
+    pp.pprint(tilesetdata.keys())
     tilesetfile = tilesetdata["image"]
     tileset = pygame.image.load(tilesetfile)
     return(tileset)
@@ -279,6 +298,10 @@ class EventHandler():
 def main():
     pygame.init()
 
+    mapdict = load_map(json_filename)
+    if RUNTEST:
+        run_test(mapdict)
+
     SCREENSIZE = (480, 320)
     SCREEN = pygame.display.set_mode(SCREENSIZE)
     starting_position = [-220,-200]
@@ -288,7 +311,7 @@ def main():
 
 
 
-    mapdict = load_map(json_filename)
+
     tilesets = Tileset(mapdict)
 
     tileset_images = tilesets.load()
@@ -311,7 +334,7 @@ def main():
     event_handler = EventHandler()
 
 
-    player = pygame.image.load("img/girl.png").convert_alpha()
+    player = pygame.image.load(player_filename).convert_alpha()
     player_rect = player.get_rect(center = SCREEN.get_rect().center)
 
 
