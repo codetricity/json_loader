@@ -60,13 +60,13 @@ Steps to Build a 2D Tile Map Game
 ---------------------------------
 
 1. Mapfile
-   ..1. read json map file from disk
-   ..2. load into python dictionary 
+  1. read json map file from disk
+  2. load into python dictionary 
 
 2. Tilesets 
-   ..1. extract list of tilesets from map dictionary
-   ..2. for each tileset, slice a 32x32 pixel square
-   ..3. load each tile into a list of all tiles from all the tilesets
+  1. extract list of tilesets from map dictionary
+  2. for each tileset, slice a 32x32 pixel square
+  3. load each tile into a list of all tiles from all the tilesets
 
 3. Display Tiles 
 
