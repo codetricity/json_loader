@@ -58,16 +58,18 @@ Alternative TMX Loaders:
 
 Steps to Build a 2D Tile Map Game
 ---------------------------------
-   1) Mapfile
-      a) read json map file from disk
-      b) load into python dictionary
+<dl>
+   <dt> Mapfile</dt>
+      <dd> read json map file from disk</dd>
+      <dd> load into python dictionary </dd>
 
-   2) Tilesets
-      a) extract list of tilesets from map dictionary
-      b) for each tileset, slice a 32x32 pixel square
-      c) load each tile into a list of all tiles from all the tilesets
+   <dt> Tilesets </dt>
+      <dd> extract list of tilesets from map dictionary</dd>
+      <dd> for each tileset, slice a 32x32 pixel square </dd>
+      <dd> load each tile into a list of all tiles from all the tilesets </dd>
 
-   3) Display Tiles
-   4) Display Player
-   5) Move Tiles
-   5) Handle collision
+   <dt>> Display Tiles </dt>
+   <dt>> Display Player </dt>
+   <dt> Move Tiles </dt>
+   <dt> Handle collision </dt>
+</dl>
