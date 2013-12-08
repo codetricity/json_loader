@@ -40,12 +40,15 @@ The ./doc directory contains documentation that is automatically generated with 
 
 To edit the sample program:
 
-The ./img directory contains graphics for two characters, a boy and and girl.  The girl is default.  To use the boy,
+The ./img directory contains graphics for two characters, a boy and and girl.
+The girl is default.  To use the boy,
 
-change the line below 
+change the line below
+
   player_filename = "img/girl.png"
 
 to
+
  player_filename = "img/boy.png"
 
 Set runtest to False to turn off red colored squares over collision
@@ -53,6 +56,7 @@ objects.  If you set runtest to True, it will also display the
 virtual onscreen controller icons.
 
 In main.py change the map file:
+
   json_filename ="maps/NAME_OF_YOUR_MAP_FILE.json"
 
 Your map file must be in JSON format.  You must set the properties
