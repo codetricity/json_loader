@@ -7,23 +7,22 @@ Steps to build a 2D tile map game
 1. Mapfile
 Example: The function load_map(filename)
 
-1.1 read json map file from disk
-1.2 load into python dictionary
+    1.1 read json map file from disk
+    1.2 load into python dictionary
 
 
 2. Tilesets
 Example: class Tileset()
 
-2.1 extract list of tilesets from map dictionary
-Example:
-Tileset.load() will open the tileset files and create a list
+    2.1 extract list of tilesets from map dictionary
+Example: Tileset.load() will open the tileset files and create a list
 of surfaces that hold all the tilesets.
 
-2.2 for each tileset, slice a 32x32 pixel square
+    2.2 for each tileset, slice a 32x32 pixel square
 Example:
 Tileset.slice_tiles2(tileset_images)
 
-2.3 load each tile into a dictionary of all tiles from all the tilesets
+    2.3 load each tile into a dictionary of all tiles from all the tilesets
 Example:
 Also handled in Tileset.slice_tiles2(tileset_images)
 
@@ -36,12 +35,12 @@ Example: class Layer()
 5.Check for touchscreen input and set direction (or keyboard on desktop computer)
 Example: class EventHandler()
 
-5.1 Keyboard input using arrow keys
+    5.1 Keyboard input using arrow keys
       Example: EventHandler.set_direction
-5.2 touchscreen input
-      - create virtual game controller
+    5.2 touchscreen input
+        - create virtual game controller
         Example: class GameController()
-      - check for touchscreen input with virtual game controller
+        - check for touchscreen input with virtual game controller
         Example: EventHandler.mouse_direction()
 
 6. Move Tiles
