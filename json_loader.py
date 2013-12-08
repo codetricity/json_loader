@@ -21,6 +21,21 @@ Steps to build a 2D tile map game
 import json, pygame, sys
 import pprint
 
+
+try:
+    import android
+except ImportError:
+    android = None
+if android:
+    android.init()
+    android.map_key(android.KEYCODE_BACK, pygame.K_ESCAPE)
+
+
+class GameScreen:
+    def __init__(self):
+        self.width = 480
+        self.height = 320
+
 def load_map(filename):
     """
     This takes a file written with Tiled that contains maps in JSON format.
@@ -90,7 +105,8 @@ class Layer():
         self.tilewidth = tiles[1].get_width()
         self.tileheight = tiles[1].get_height()
         self.speed = 1
-        self.screensize = (480, 320)
+        screen = GameScreen()
+        self.screensize = (screen.width, screen.height)
         self.mapwidth = self.width * self.tilewidth
         self.mapheight = self.height * self.tileheight
 
@@ -280,11 +296,14 @@ def run_test(mapdict):
 
 class EventHandler():
     def quit_game(self, event):
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or \
+                (event.type == pygame.KEYDOWN and
+                         event.key == pygame.K_ESCAPE):
             pygame.quit()
             sys.exit()
 
     def set_direction(self, event, direction):
+        direction = self.mouse_direction(direction)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
                 direction = "right"
@@ -295,4 +314,22 @@ class EventHandler():
             elif event.key == pygame.K_DOWN:
                 direction = "down"
         return(direction)
+
+    def mouse_direction(self, direction):
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_x, mouse_y = mouse_pos[0], mouse_pos[1]
+        screen = GameScreen()
+        screensize = [screen.width, screen.height]
+        if mouse_x > 0 and mouse_x < 100:
+            direction = "left"
+        elif mouse_x < screen.width and mouse_x > screen.width - 100:
+            direction = "right"
+
+        if mouse_y > 0 and mouse_y < 100:
+            direction = "up"
+        elif mouse_y < screen.height and mouse_y > screen.height - 100:
+            direction = "down"
+        return(direction)
+
+
 

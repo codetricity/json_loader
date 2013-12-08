@@ -15,6 +15,12 @@ import json, pygame, sys
 import pprint
 from json_loader import *
 
+
+if android:
+    print("android found")
+
+
+
 ###############################
 ## Change RUNTEST to False to 
 ## Turn off red squares over the
@@ -100,6 +106,9 @@ def main():
             event_handler.quit_game(event)
             direction = event_handler.set_direction(event, direction)
 
+        if android:
+            if android.check_pause():
+                android.wait_for_resume()
         pos, collision_list = layers.update_pos(pos, direction, collision_list)
 
         SCREEN.blit(combined_layers, pos)
