@@ -20,7 +20,7 @@ from json_loader import *
 ## Turn off red squares over the
 ## objects with collision.
 
-runtest = False
+runtest = True
 
 ###############################
 ## Map section
