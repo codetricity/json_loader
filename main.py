@@ -10,15 +10,9 @@ http://pychildren.blogspot.com
 
 """
 
-
 import json, pygame, sys
 import pprint
 from json_loader import *
-
-
-if android:
-    print("android found")
-
 
 
 ###############################
@@ -26,7 +20,7 @@ if android:
 ## Turn off red squares over the
 ## objects with collision.
 
-RUNTEST = True
+runtest = False
 
 ###############################
 ## Map section
@@ -53,9 +47,11 @@ player_filename = "img/girl.png"
 def main():
     pygame.init()
 
+
     mapdict = load_map(json_filename)
-    if RUNTEST:
-        run_test(mapdict)
+    if runtest:
+        tester = RunTest()
+        tester.showdata(mapdict)
 
     SCREENSIZE = (480, 320)
     SCREEN = pygame.display.set_mode(SCREENSIZE)
@@ -65,17 +61,12 @@ def main():
     direction = "stop"
 
 
-
-
     tilesets = Tileset(mapdict)
 
     tileset_images = tilesets.load()
-    # tiles = tilesets.slice_tiles(tileset_images)
-    # try out new method of storing tiles from the tilesets into
-    # a dictionary
     tileset_image_dict = tilesets.slice_tiles2(tileset_images)
 
-    # layers = Layer(mapdict, tiles)
+
     layers = Layer(mapdict, tileset_image_dict)
 
     # this controls the speed of the player moving around the screen
@@ -85,7 +76,6 @@ def main():
     layers.screensize = SCREENSIZE
     combined_layers = layers.load2()
 
-    # combined_layers = layers.load()
 
     collision_list = layers.load_collision()
     for rect in collision_list:
@@ -99,32 +89,31 @@ def main():
     player = pygame.image.load(player_filename).convert_alpha()
     player_rect = player.get_rect(center = SCREEN.get_rect().center)
 
-
+    # set up virtual controls for the phone touchscreen
+    virtual_game_controller = GameController()
 
     while True:
         for event in pygame.event.get():
             event_handler.quit_game(event)
-            direction = event_handler.set_direction(event, direction)
+            direction = event_handler.set_direction(event,
+                                                    direction,
+                                                    virtual_game_controller)
 
         if android:
-            if android.check_pause():
-                android.wait_for_resume()
-        pos, collision_list = layers.update_pos(pos, direction, collision_list)
+            check_for_pause()
+
+        pos, collision_list = layers.update_pos(pos,
+                                                direction,
+                                                collision_list)
 
         SCREEN.blit(combined_layers, pos)
 
-        if RUNTEST:
-            for rect in collision_list:
-                tile = pygame.Surface((32, 32))
-                tile.fill((255, 0, 0))
-                tile.set_alpha(70)
-                SCREEN.blit(tile, rect)
+        if runtest:
+            tester.showcollision(collision_list, SCREEN)
+            tester.showcontroller(virtual_game_controller, SCREEN)
 
         SCREEN.blit(player, player_rect)
-
         pygame.display.update()
-
-
 
 
 if __name__ == "__main__":

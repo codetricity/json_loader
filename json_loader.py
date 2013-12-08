@@ -30,6 +30,15 @@ if android:
     android.init()
     android.map_key(android.KEYCODE_BACK, pygame.K_ESCAPE)
 
+# When the home screen is pressed, pause your Android game
+# so it doesn't keep running in the background
+# This didn't seem to be working in my last test.
+# I'm leaving it in for now.
+
+def check_for_pause():
+    if android.check_pause():
+        android.wait_for_resume()
+
 
 class GameScreen:
     def __init__(self):
@@ -274,25 +283,39 @@ class Layer():
 
 
 
-def run_test(mapdict):
-    """
-    Don't use this.  It was created to run some tests.
-    Takes a dictionary of map data, converted from Tiled data.
-    returns a pygame.Surface that is the entire tileset.
-    """
-    mapkeys =mapdict.keys()
-    pp = pprint.PrettyPrinter(indent=4)
-    print ("\n\nThere are usually 9 primary keys in the json file produced by Tiled.\n")
-    print("The keys in your map file are:")
-    pp.pprint(mapkeys)
-    tilesets = mapdict["tilesets"]
-    print("\nYour map file uses {} tilesets\n".format(len(tilesets)))
-    tilesetdata = tilesets[0]
-    print("The keys in the tileset are:")
-    pp.pprint(tilesetdata.keys())
-    tilesetfile = tilesetdata["image"]
-    tileset = pygame.image.load(tilesetfile)
-    return(tileset)
+class RunTest():
+    def showdata(self, mapdict):
+        """
+        Don't use this.  It was created to run some tests.
+        Takes a dictionary of map data, converted from Tiled data.
+        returns a pygame.Surface that is the entire tileset.
+        """
+        mapkeys =mapdict.keys()
+        pp = pprint.PrettyPrinter(indent=4)
+        print ("\n\nThere are usually 9 primary keys in the json file produced by Tiled.\n")
+        print("The keys in your map file are:")
+        pp.pprint(mapkeys)
+        tilesets = mapdict["tilesets"]
+        print("\nYour map file uses {} tilesets\n".format(len(tilesets)))
+        tilesetdata = tilesets[0]
+        print("The keys in the tileset are:")
+        pp.pprint(tilesetdata.keys())
+        tilesetfile = tilesetdata["image"]
+        tileset = pygame.image.load(tilesetfile)
+        return(tileset)
+
+    def showcollision(self, collision_list, screen):
+        for rect in collision_list:
+            tile = pygame.Surface((32, 32))
+            tile.fill((255, 0, 0))
+            tile.set_alpha(70)
+            screen.blit(tile, rect)
+        return(screen)
+
+    def showcontroller(self, virtual_controller, screen):
+        for button in virtual_controller.buttons:
+            screen.blit(button, virtual_controller.buttons[button])
+
 
 class EventHandler():
     def quit_game(self, event):
@@ -302,7 +325,8 @@ class EventHandler():
             pygame.quit()
             sys.exit()
 
-    def set_direction(self, event, direction):
+    def set_direction(self, event, direction, virtual_game_controller):
+        self.virtual_game_controller = virtual_game_controller
         direction = self.mouse_direction(direction)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
@@ -316,20 +340,48 @@ class EventHandler():
         return(direction)
 
     def mouse_direction(self, direction):
+        """
+        sets direction based on touchscreen input.
+        accepts current direction.  Checks for mouse position (same as touchscreen)
+        and then returns direction.
+        """
         mouse_pos = pygame.mouse.get_pos()
-        mouse_x, mouse_y = mouse_pos[0], mouse_pos[1]
-        screen = GameScreen()
-        screensize = [screen.width, screen.height]
-        if mouse_x > 0 and mouse_x < 100:
+        if self.virtual_game_controller.left.collidepoint(mouse_pos):
             direction = "left"
-        elif mouse_x < screen.width and mouse_x > screen.width - 100:
+        elif self.virtual_game_controller.right.collidepoint(mouse_pos):
             direction = "right"
-
-        if mouse_y > 0 and mouse_y < 100:
+        if self.virtual_game_controller.up.collidepoint(mouse_pos):
             direction = "up"
-        elif mouse_y < screen.height and mouse_y > screen.height - 100:
+        elif self.virtual_game_controller.down.collidepoint(mouse_pos):
             direction = "down"
         return(direction)
+
+class GameController():
+    def __init__(self):
+        screen = GameScreen()
+        #adjust the size of the controller button.
+        size = 100
+        self.left = pygame.Rect(0, size, size,
+                                screen.height - size *2)
+        self.right = pygame.Rect(screen.width - size, size,
+                                 size, screen.height - size * 2)
+        self.up = pygame.Rect(size, 0,
+                              screen.width - size * 2, size)
+        self.down = pygame.Rect(size, screen.height - size,
+                                screen.width - size * 2, size)
+
+        # color of controller
+        blue = (0, 0, 255)
+
+        self.leftbutton = pygame.Surface(self.left.size)
+        self.rightbutton = pygame.Surface(self.right.size)
+        self.upbutton = pygame.Surface(self.up.size)
+        self.downbutton = pygame.Surface(self.down.size)
+        self.buttons = {self.leftbutton: self.left, self.rightbutton: self.right,
+                   self.upbutton: self.up, self.downbutton: self.down}
+        for button in self.buttons:
+            button.fill(blue)
+            button.set_alpha(40)
 
 
 
