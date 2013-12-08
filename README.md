@@ -3,7 +3,11 @@ json_loader
 
 Overview
 --------
-Example python json map loader for Tiled maps saved in json format.  The graphics mouse io are handled by Pygame.  the application is loaded onto Android phones with Pygame Subset for Android.
+Example python json map loader for Tiled maps saved in json format.  The graphics and mouse io are handled by Pygame.
+The application is loaded onto Android phones with Pygame Subset for Android (pgs4a).
+This also handles the mapping of the mouse to the touchscreen.  pgs4a only
+handles single-point touch.   You won't be able to do things like two finger swipe
+or rotate that requires two finger touch.
 
 Click on the link below to see a video of the lesson's example code running on a Samsung Android phone.
 
