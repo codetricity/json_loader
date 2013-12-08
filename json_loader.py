@@ -2,7 +2,7 @@ __author__ = 'craig'
 
 
 """
-Steps to build a 2D tile map game
+Steps to build a 2D tile map loader
 ---------------------------------
 1. Mapfile
 

@@ -73,7 +73,7 @@ Alternative TMX Loaders:
   - pytmxloader https://code.google.com/p/pytmxloader/
 
 
-Steps to build a 2D tile map game
+Steps to build a 2D tile map loader
 ---------------------------------
 1. Mapfile
 
