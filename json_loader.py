@@ -4,18 +4,51 @@ __author__ = 'craig'
 """
 Steps to build a 2D tile map game
    1) Mapfile
+   Example: The function load_map(filename)
       a) read json map file from disk
       b) load into python dictionary
 
+
    2) Tilesets
+   Example: class Tileset()
       a) extract list of tilesets from map dictionary
+      Example:
+      Tileset.load() will open the tileset files and create a list
+      of surfaces that hold all the tilesets.
+
       b) for each tileset, slice a 32x32 pixel square
-      c) load each tile into a list of all tiles from all the tilesets
+      Example:
+      Tileset.slice_tiles2(tileset_images)
+
+      c) load each tile into a dictionary of all tiles from all the tilesets
+      Example:
+      Also handled in Tileset.slice_tiles2(tileset_images)
+
 
    3) Display Tiles
+   Example: class Layer()
+
    4) Display Player
-   5) Move Tiles
-   5) Handle collision
+
+   5) Check for touchscreen input and set direction (or keyboard on desktop computer)
+   Example: class EventHandler()
+
+   a) Keyboard input using arrow keys
+      Example: EventHandler.set_direction
+   b) touchscreen input
+      - create virtual game controller
+        Example: class GameController()
+      - check for touchscreen input with virtual game controller
+        Example: EventHandler.mouse_direction()
+
+   6) Move Tiles
+   Example: Layer.update_pos()
+
+   7) Check boundaries
+   Example: Layer.calculate_map_boundary() and Layer.check_boundary()
+
+   8) Handle collision
+   Example: Layer.check_collision()
 """
 
 import json, pygame, sys
@@ -89,7 +122,16 @@ class Tileset():
 
     def slice_tiles2(self, tileset_images):
         """
-        Slices up the tileset and returns a list of all tiles in all layers.
+        Slices up the tileset and returns a dictionary of all tiles in all layers.
+        Accepts: tileset_images (list of all tileset surfaces)
+        Returns: tiles (dictionary containing the tile_id as the key and
+        the surface of each individual tile.  All the tiles for all the tilesets
+        are stored in a single dictionary.
+
+        Use the dictionary when you read in the layers of the JSON mapfile
+        produced by Tiled.  In each layer, there is a "data" key that lists
+        all the tiles on the map.  With this key/value dictionary, you can
+        match each tile with the number in the "data" list.
         """
         tile_id = 1
         tiles = {}

@@ -43,6 +43,7 @@ json_filename = "maps/larger_map.json"
 ## similar size
 #################################
 player_filename = "img/girl.png"
+PLAYER_START_POS = [-220,-200]
 
 def main():
     pygame.init()
@@ -55,7 +56,7 @@ def main():
 
     SCREENSIZE = (480, 320)
     SCREEN = pygame.display.set_mode(SCREENSIZE)
-    starting_position = [-220,-200]
+    starting_position = PLAYER_START_POS
 
     pos = starting_position
     direction = "stop"
