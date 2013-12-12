@@ -1,5 +1,3 @@
-mapper
-======
 json_loader
 ===========
 
@@ -13,7 +11,7 @@ or rotate that requires two finger touch.
 
 Click on the link below to see a video of the lesson's example code running on a Samsung Android phone.
 
-http://youtu.be/tJ_O48oTpxk
+    http://youtu.be/tJ_O48oTpxk
 
 The example was developed as part of the teaching curriculum for my 14 year old son.
 
@@ -37,7 +35,7 @@ To use this lesson, you will need:
 First, play around with the example program.  Have fun and understand the goal.
 Execute the sample program on your desktop with:
 
- $ python main.py
+    $ python main.py
 
 Next, create your own maps with Tiled and play around with the loader.
 Show your friends, write your own game, extend the loader.
@@ -52,11 +50,11 @@ The girl is default.  To use the boy,
 
 change the line below
 
-  player_image_file = "img/girl.png"
+    player_image_file = "img/girl.png"
 
 to
 
- player_filename = "img/boy.png"
+    player_filename = "img/boy.png"
 
 Set TESTING to False to turn off red colored squares over collision
 objects.
@@ -64,13 +62,13 @@ objects.
 
 In main.py change the map file:
 
-  map_file ="maps/NAME_OF_YOUR_MAP_FILE.json"
+    map_file ="maps/NAME_OF_YOUR_MAP_FILE.json"
 
 Your map file must be in JSON format.  You must set the properties
 of the collision layer in your map file to "1".   All your tilesets must
 be in maps/tilesets.
 
-The map.move(-200, 0) is the initial position of the player
+map.move(-200, 0) sets the initial position of the player
 when the game starts.  If you set this to [0, 0], the player will be
 in the upper left-hand quadrant of your map.  Use negative values to
 start the player to the right on the map or down on the map.
@@ -78,10 +76,12 @@ start the player to the right on the map or down on the map.
 Who This is For
 ---------------
 This lesson is part of a teaching curriculum for a 14 year old boy,
-my son.  He started learning Python at age 12.  The teaching
-method was developed after unsuccessfully trying curriculum
-developed for adults. Typical books for adults focus too much on
-theory.  I was also not satisfied with courses based on Scratch
+my son.  He started learning Python at age 12 at an average of 1 lesson
+per month, more in the summer and less during soccer season.  Initially,
+each lesson lasted 30 to 60 minutes, less when he was 12 and more
+as he got older.  The teaching method was developed after unsuccessfully
+trying curriculum developed for adults. Typical books for adults focus
+too much on theory.  I was also not satisfied with courses based on Scratch
 or Alice.  I wanted my son to start learning more about data structures,
 parsing data, and mobile application development.
 
