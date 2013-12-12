@@ -111,6 +111,10 @@ class Map():
         self.phone_width = initial.phone_rect.width
         self.phone_height = initial. phone_rect.height
         self.virtual_game_controller = GameController(initial)
+        basefont = pygame.font.Font("assets/fnt/ASTONISH.TTF", 30)
+        self.test_message = basefont.render("Test Button", True, (0,0,0), (255, 255, 255))
+        initial.test_rect = self.test_message.get_rect()
+        
 
 
     def check_collision(self):
@@ -197,12 +201,13 @@ class Map():
 
 
             
-
+        screen.blit(self.test_message, (5, 5))
         screen.blit(self.player.image, self.player.rect)
 
 class Event():
     def __init__(self, initial):
         self.direction = "stop"
+        self.initial = initial
         self.virtual_game_controller = GameController(initial)
 
     def update(self):
@@ -224,8 +229,18 @@ class Event():
                     self.direction = "left"
                 elif event.key == pygame.K_RIGHT:
                     self.direction = "right"
-
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.game_buttons()
         self.mouse_direction()
+
+    def game_buttons(self):    
+        mouse_pos = pygame.mouse.get_pos()
+        if self.initial.test_rect.collidepoint(mouse_pos):
+            if self.initial.test:
+                self.initial.test = False
+            else:
+                self.initial.test = True
+
 
     def mouse_direction(self):
         """
@@ -257,6 +272,7 @@ class Initialize():
         self.mapheight = self.layers[0]["height"] * 32
         self.mapwidth = self.layers[0]["width"] * 32
         self.phone_rect = phone_screen.get_rect()
+        self.test_button = pygame.Rect(5, 5, 20, 100)
 
         self.player = Player(self.phone_rect.center, player_image_file)
         self.tileset()

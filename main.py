@@ -29,6 +29,8 @@ def main():
     pygame.init()
     # set screen size of phone or desktop window.  Adjust to your phone
     screen = pygame.display.set_mode((480, 320))
+    pygame.display.set_caption("Use keyboard arrow keys or mouse.  Press TEST to toggle overlay")
+    
 
     # game framerate.  Higher number is faster
     FPS = 40
