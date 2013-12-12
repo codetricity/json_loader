@@ -189,18 +189,7 @@ class Map():
                 for collision_tile in layer:
                     screen.blit(collision_tile.image, collision_tile.rect)
 
-            screen.blit(self.virtual_game_controller.leftbutton,
-                            self.virtual_game_controller.left)
-            screen.blit(self.virtual_game_controller.rightbutton,
-                            self.virtual_game_controller.right)
-            screen.blit(self.virtual_game_controller.upbutton,
-                            self.virtual_game_controller.up)
-            screen.blit(self.virtual_game_controller.downbutton,
-                            self.virtual_game_controller.down)
-
-
-
-            
+            self.virtual_game_controller.gamebuttons.draw(screen)
         screen.blit(self.test_message, (5, 5))
         screen.blit(self.player.image, self.player.rect)
 
@@ -248,15 +237,10 @@ class Event():
         Checks for mouse position (same as touchscreen)
         """
         mouse_pos = pygame.mouse.get_pos()
-        if self.virtual_game_controller.left.collidepoint(mouse_pos):
-            self.direction = "left"
-        elif self.virtual_game_controller.right.collidepoint(mouse_pos):
-            self.direction = "right"
-        if self.virtual_game_controller.up.collidepoint(mouse_pos):
-            self.direction = "up"
-        elif self.virtual_game_controller.down.collidepoint(mouse_pos):
-            self.direction = "down"
 
+        for button in self.virtual_game_controller.gamebuttons:
+            if button.rect.collidepoint(mouse_pos):
+                self.direction = button.name
 
 class Initialize():
 
@@ -343,27 +327,46 @@ class Initialize():
 class GameController():
     def __init__(self, initial):
 
+        self.gamebuttons = pygame.sprite.Group()
         #adjust the size of the controller button.
         size = 100
         screen = initial.phone_rect.copy()
-        self.left = pygame.Rect(0, size, size,
-                                screen.height - size *2)
-        self.right = pygame.Rect(screen.width - size, size,
-                                 size, screen.height - size * 2)
-        self.up = pygame.Rect(size, 0,
-                              screen.width - size * 2, size)
-        self.down = pygame.Rect(size, screen.height - size,
-                                screen.width - size * 2, size)
+
+        self.gamebuttons.add(GameButton("left",
+                            pygame.Surface((size, screen.height - size *2)),
+                            pygame.Rect(0, size, size, screen.height - size *2)))
+
+        self.gamebuttons.add(GameButton("right",
+                                        pygame.Surface((size,
+                                                       screen.height - size * 2)),
+                                        pygame.Rect(screen.width - size,
+                                                    size,
+                                                    size,
+                                                    screen.height - size * 2)))
+
+        self.gamebuttons.add(GameButton("up",
+                                        pygame.Surface((screen.width -
+                                                       size * 2, size)),
+                                        pygame.Rect(size,
+                                                    0,
+                                                    screen.width -
+                                                    size * 2, size)))
+
+        self.gamebuttons.add(GameButton("down",
+                                        pygame.Surface((screen.width - size * 2, size)),
+                                        pygame.Rect(size, screen.height - size,
+                                screen.width - size * 2, size)))
 
         # color of controller.  It is hidden by default
         blue = (0, 0, 255)
 
-        self.leftbutton = pygame.Surface(self.left.size)
-        self.rightbutton = pygame.Surface(self.right.size)
-        self.upbutton = pygame.Surface(self.up.size)
-        self.downbutton = pygame.Surface(self.down.size)
-        self.buttons = {self.leftbutton: self.left, self.rightbutton: self.right,
-                   self.upbutton: self.up, self.downbutton: self.down}
-        for button in self.buttons:
-            button.fill(blue)
-            button.set_alpha(40)
+        for button in self.gamebuttons:
+            button.image.fill(blue)
+            button.image.set_alpha(40)
+
+class GameButton(pygame.sprite.Sprite):
+    def __init__(self, name, image, rect):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = rect
+        self.name = name
