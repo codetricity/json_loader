@@ -66,7 +66,9 @@ In main.py change the map file:
 
 Your map file must be in JSON format.  You must set the properties
 of the collision layer in your map file to "1".   All your tilesets must
-be in maps/tilesets.
+be in maps/tilesets.  I created a YouTube video on how to use
+Tiled to create the proper JSON map file.  See the YouTube channel
+if you need help.
 
 map.move(-200, 0) sets the initial position of the player
 when the game starts.  If you set this to [0, 0], the player will be
