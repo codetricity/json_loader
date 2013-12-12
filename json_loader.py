@@ -198,6 +198,8 @@ class Event():
         self.direction = "stop"
         self.initial = initial
         self.virtual_game_controller = GameController(initial)
+        self.jump = False
+        self.fall = False
 
     def update(self):
         # check for android pause event
@@ -218,6 +220,8 @@ class Event():
                     self.direction = "left"
                 elif event.key == pygame.K_RIGHT:
                     self.direction = "right"
+                elif event.key == pygame.K_SPACE:
+                    self.jump = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.game_buttons()
         self.mouse_direction()
@@ -307,15 +311,12 @@ class Initialize():
 
 
     def tileset(self):
-
         tilesets = self.mapdict["tilesets"]
-
-
         tile_id = 1
         self.all_tiles = {}
 
         for tileset in tilesets:
-            tilesurface = pygame.image.load(tileset["image"]).convert_alpha()
+            tilesurface = pygame.image.load("maps/" + tileset["image"]).convert_alpha()
             for y in range(0, tileset["imageheight"], 32):
                 for x in range (0, tileset["imagewidth"], 32):
                     rect = pygame.Rect(x, y, 32, 32)

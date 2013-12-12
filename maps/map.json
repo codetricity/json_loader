@@ -42,7 +42,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"maps/tilesets\/terrain_atlas.png",
+         "image":"tilesets\/terrain_atlas.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
