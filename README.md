@@ -51,7 +51,8 @@ The girl is default.  To use the boy,
 change the line below
 
     player_image_file = "img/girl.png"
-
+![Alt image of girl is in img/ directory][id]
+[id]: img/girl.png "Default character is a girl."
 to
 
     player_filename = "img/boy.png"
