@@ -5,117 +5,60 @@ games in Python for his mobile phone.
 Additional information is available at:
   http://github.com/codetricity/json_loader
 
+The goal of the lesson is to build a JSON map loader that is
+produced from Tiled.  Once the JSON loader is built, it can be
+used to create a variety of games.
+
+In addition to json_loader, you will need to have Python 2.7 and
+Pygame 1.9.1 installed.  Pygame does not work with Python 3.
+
 Follow my son's progress:
 http://pychildren.blogspot.com
 
 """
 
-import json, pygame, sys
-import pprint
-from json_loader import *
+__author__ = 'craig'
+import pygame
+import json_loader
 
 
-###############################
-## Change RUNTEST to False to 
-## Turn off red squares over the
-## objects with collision.
-
-runtest = True
-
-###############################
-## Map section
-## Change the filename to use another
-## test map or create your own map.
-## use tilesets with 32x32 pixels
-## ############################
-
-# small map with no collision
-# json_filename = "maps/map.json"
-
-#larger map with collision
-json_filename = "maps/larger_map.json"
-
-# json_filename = "maps/test_map.json"
-
-#################################
-## Player image.  Change to use 
-## boy.png or any other graphic of
-## similar size
-#################################
-player_filename = "img/girl.png"
-PLAYER_START_POS = [-220,-200]
 
 def main():
+
+    # initialize pygame
     pygame.init()
+    # set screen size of phone or desktop window.  Adjust to your phone
+    screen = pygame.display.set_mode((480, 320))
 
+    # game framerate.  Higher number is faster
+    FPS = 40
 
-    mapdict = load_map(json_filename)
-    if runtest:
-        tester = RunTest()
-        tester.showdata(mapdict)
+    # change the file names to your player graphic and map file
+    player_image_file = "img/girl.png"
+    map_file = "maps/larger_map.json"
 
-    SCREENSIZE = (480, 320)
-    SCREEN = pygame.display.set_mode(SCREENSIZE)
-    starting_position = PLAYER_START_POS
+    # change to False (with capital F) to turn off red squares over
+    # collision rectangles
+    TESTING = True
 
-    pos = starting_position
-    direction = "stop"
+    #initialize json loader, build tileset list, load player graphic
+    initial = json_loader.Initialize(screen, TESTING, map_file, player_image_file)
 
+    # initialize position of player when game first starts
+    map = json_loader.Map(initial)
+    map.move(-200, 0)
 
-    tilesets = Tileset(mapdict)
+    # handle events such as keyboard / touchscreen presses
+    event = json_loader.Event(initial)
+    clock = pygame.time.Clock()
 
-    tileset_images = tilesets.load()
-    tileset_image_dict = tilesets.slice_tiles2(tileset_images)
-
-
-    layers = Layer(mapdict, tileset_image_dict)
-
-    # this controls the speed of the player moving around the screen
-    layers.speed = 3
-
-    # the default screensize is 480, 320
-    layers.screensize = SCREENSIZE
-    combined_layers = layers.load2()
-
-
-    collision_list = layers.load_collision()
-    for rect in collision_list:
-        rect.centerx += starting_position[0]
-        rect.centery += starting_position[1]
-    layers.calculate_map_boundary()
-
-    event_handler = EventHandler()
-
-
-    player = pygame.image.load(player_filename).convert_alpha()
-    player_rect = player.get_rect(center = SCREEN.get_rect().center)
-
-    # set up virtual controls for the phone touchscreen
-    virtual_game_controller = GameController()
 
     while True:
-        for event in pygame.event.get():
-            event_handler.quit_game(event)
-            direction = event_handler.set_direction(event,
-                                                    direction,
-                                                    virtual_game_controller)
-
-        if android:
-            check_for_pause()
-
-        pos, collision_list = layers.update_pos(pos,
-                                                direction,
-                                                collision_list)
-
-        SCREEN.blit(combined_layers, pos)
-
-        if runtest:
-            tester.showcollision(collision_list, SCREEN)
-            tester.showcontroller(virtual_game_controller, SCREEN)
-
-        SCREEN.blit(player, player_rect)
+        event.update()
+        map.update(event.direction)
+        map.display(screen)
+        clock.tick(FPS)
         pygame.display.update()
-
 
 if __name__ == "__main__":
     main()

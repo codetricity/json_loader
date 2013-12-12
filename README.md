@@ -1,3 +1,5 @@
+mapper
+======
 json_loader
 ===========
 
@@ -13,9 +15,9 @@ Click on the link below to see a video of the lesson's example code running on a
 
 http://youtu.be/tJ_O48oTpxk
 
-The example was developed as part of the teaching curriculum for my 14 year old son.  
+The example was developed as part of the teaching curriculum for my 14 year old son.
 
-I originally created a video for him to learn how to use Tiled.  When I put it up on YouTube, several people commented on it and wanted the code for the example.  I decided to put the code up so that I could share it with people that watched the video.  This is the second version of the JSON loader code.  
+I originally created a video for him to learn how to use Tiled.  When I put it up on YouTube, several people commented on it and wanted the code for the example.  I decided to put the code up so that I could share it with people that watched the video.  This is the second version of the JSON loader code.
 
 In order to progress in our lesson and get some 2D game development experience, I have my son working on a JSON loader.  The lessons seem to be working so far.
 
@@ -32,11 +34,16 @@ To use this lesson, you will need:
 
 
 
-execute the sample program on your desktop with:
+First, play around with the example program.  Have fun and understand the goal.
+Execute the sample program on your desktop with:
 
  $ python main.py
 
-The ./doc directory contains documentation that is automatically generated with pydoc
+Next, create your own maps with Tiled and play around with the loader.
+Show your friends, write your own game, extend the loader.
+Put the game on your Android  phone.  When you are ready, start building
+the JSON loader on your own using the steps listed below and this code
+as a reference.
 
 To edit the sample program:
 
@@ -45,47 +52,90 @@ The girl is default.  To use the boy,
 
 change the line below
 
-  player_filename = "img/girl.png"
+  player_image_file = "img/girl.png"
 
 to
 
  player_filename = "img/boy.png"
 
-Set runtest to False to turn off red colored squares over collision
-objects.  If you set runtest to True, it will also display the
-virtual onscreen controller icons.
+Set TESTING to False to turn off red colored squares over collision
+objects.
+
 
 In main.py change the map file:
 
-  json_filename ="maps/NAME_OF_YOUR_MAP_FILE.json"
+  map_file ="maps/NAME_OF_YOUR_MAP_FILE.json"
 
 Your map file must be in JSON format.  You must set the properties
 of the collision layer in your map file to "1".   All your tilesets must
 be in maps/tilesets.
 
-The PLAYER_START_POS constant is the initial position of the player
+The map.move(-200, 0) is the initial position of the player
 when the game starts.  If you set this to [0, 0], the player will be
 in the upper left-hand quadrant of your map.  Use negative values to
 start the player to the right on the map or down on the map.
 
+Who This is For
+---------------
+This lesson is part of a teaching curriculum for a 14 year old boy,
+my son.  He started learning Python at age 12.  The teaching
+method was developed after unsuccessfully trying curriculum
+developed for adults. Typical books for adults focus too much on
+theory.  I was also not satisfied with courses based on Scratch
+or Alice.  I wanted my son to start learning more about data structures,
+parsing data, and mobile application development.
 
+My method is based on repetitive drills.  If you're a parent interested
+in my teaching methodology, you should watch my presentation on
+"How to Teach Your Teenager Computer Programming."
 
+    https://www.youtube.com/watch?v=re2oDDaNbTM
 
+If you are a teenager interested in learning to program mobile
+applications on your Android phone, you should follow the process
+outlined on my YouTube channel
 
-Alternatives to JSON
---------------------
-If you're not putting the application on Android, you should check out Tiled TMX Loader.  Note that Pygame Subset for Android (pgs4a) doesn't work with the XML libraries and won't work with Tiled TMX Loader.  
+    https://www.youtube.com/user/surfkidsdad
 
-Alternative TMX Loaders:
-  - PyTMX https://github.com/bitcraft/PyTMX
-  - pytmxloader https://code.google.com/p/pytmxloader/
+The process is:
+
+1. The Blank Screen
+
+2. The Stationary Square
+
+3. The Moving Square
+
+4. Touchscreen movement
+
+5. Going Mobile - Getting your app on your Android phone
+
+    - Adding Android-specific code
+    - Configuring pgs4a
+    - Loading the app onto your phone with a USB cable
+
+6. Putting it all together - Adding graphics and a virtual controller
+
+7. 2D ground scroller basic
+
+8. Pygame character animation
+
+9. 2D Tile map basic.  No loader.  Map doesn't scroll (see Swarm game)
+
+10. Tiled 2D tile map creation in JSON format
+
+11. Building the json loader to get the map onto the phone
+
+Except for Swarm, there are video tutorials for all the lesson blocks.
+Each of the eleven lesson blocks above is more than one day of lessons.
+Assuming one class per week, the JSON loader lesson could take months
+to complete.
 
 
 Steps to build a 2D tile map loader
 ---------------------------------
 1. Mapfile
 
-    Example: The function load_map(filename)
+    Example: class Initialize
 
     1.1 read json map file from disk
 
@@ -94,34 +144,29 @@ Steps to build a 2D tile map loader
 
 2. Tilesets
 
-    Example: class Tileset()
+    Example: class Intialize.tileset()
 
     2.1 extract list of tilesets from map dictionary
 
-    Example: Tileset.load() will open the tileset files and create a list
-of surfaces that hold all the tilesets.
 
     2.2 for each tileset, slice a 32x32 pixel square
 
-    Example: Tileset.slice_tiles2(tileset_images)
-
     2.3 load each tile into a dictionary of all tiles from all the tilesets
-
-    Example: Also handled in Tileset.slice_tiles2(tileset_images)
 
 3. Display Tiles
 
-    Example: class Layer()
+    Example: Initialize.build()
 
 4. Display Player
 
+    Example: class Player
+
 5. Check for touchscreen input and set direction (or keyboard on desktop computer)
 
-    Example: class EventHandler()
+    Example: class Event()
 
     5.1 Keyboard input using arrow keys
 
-      Example: EventHandler.set_direction
 
     5.2 touchscreen input
 
@@ -131,22 +176,16 @@ of surfaces that hold all the tilesets.
 
         - check for touchscreen input with virtual game controller
 
-        Example: EventHandler.mouse_direction()
+        Example: Event.mouse_direction()
 
 6. Move Tiles
 
-    Example: Layer.update_pos()
+    Example: class Map.update(direction) and class Map.move(x = 0, y = 0)
 
 7. Check boundaries
 
-    Example: Layer.calculate_map_boundary() and Layer.check_boundary()
+    Example: Map.clear_to_move()
 
 8. Handle collision
 
     Example: Layer.check_collision()
-
-
-Screenshots of Game on Android Phone
-------------------------------------
-![Alt Screenshot of game available in img/screenshot][id]
-[id]: img/screenshot/screen_with_collision.png "Example game running with red tint on collision areas"
