@@ -56,6 +56,7 @@ change the line below
 to
 
     player_filename = "img/boy.png"
+![alt text](img/boy.png "Boy character is also available.")
 
 Set TESTING to False to turn off red colored squares over collision
 objects.
