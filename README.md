@@ -191,3 +191,9 @@ Steps to build a 2D tile map loader
 8. Handle collision
 
     Example: Layer.check_collision()
+
+
+Screenshots of Game on Android Phone
+------------------------------------
+![Alt Screenshot of game available in img/screenshot][id]
+[id]: img/screenshot/screen_with_collision.png "Example game running with red tint on collision areas"
