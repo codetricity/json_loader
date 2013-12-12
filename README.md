@@ -51,8 +51,8 @@ The girl is default.  To use the boy,
 change the line below
 
     player_image_file = "img/girl.png"
-![Alt image of girl is in img/ directory][id]
-[id]: img/girl.png "Default character is a girl."
+![alt text](img/girl.png "Default character is a girl.")
+
 to
 
     player_filename = "img/boy.png"
@@ -196,5 +196,5 @@ Steps to build a 2D tile map loader
 
 Screenshots of Game on Android Phone
 ------------------------------------
-![Alt Screenshot of game available in img/screenshot][id]
+![Alt text][id]
 [id]: img/screenshot/screen_with_collision.png "Example game running with red tint on collision areas"
