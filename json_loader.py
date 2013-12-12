@@ -1,5 +1,6 @@
-
 """
+View README.md for more information.
+
 Steps to build a 2D tile map loader
 ---------------------------------
 1. Mapfile
@@ -64,8 +65,9 @@ Steps to build a 2D tile map loader
 
 __author__ = 'craig'
 import json
+# you need Pygame http://pygame.org and Python 2.7 to run these
+# examples
 import pygame, sys
-
 
 # code specific to running games on Android
 try:
@@ -108,6 +110,7 @@ class Map():
         self.player = initial.player
         self.phone_width = initial.phone_rect.width
         self.phone_height = initial. phone_rect.height
+        self.virtual_game_controller = GameController(initial)
 
 
     def check_collision(self):
@@ -181,6 +184,20 @@ class Map():
             for layer in self.collision_layers:
                 for collision_tile in layer:
                     screen.blit(collision_tile.image, collision_tile.rect)
+
+            screen.blit(self.virtual_game_controller.leftbutton,
+                            self.virtual_game_controller.left)
+            screen.blit(self.virtual_game_controller.rightbutton,
+                            self.virtual_game_controller.right)
+            screen.blit(self.virtual_game_controller.upbutton,
+                            self.virtual_game_controller.up)
+            screen.blit(self.virtual_game_controller.downbutton,
+                            self.virtual_game_controller.down)
+
+
+
+            
+
         screen.blit(self.player.image, self.player.rect)
 
 class Event():
@@ -297,8 +314,6 @@ class Initialize():
         tile_id = 1
         self.all_tiles = {}
 
-        sheetwidth = tilesets[0]["imagewidth"]
-
         for tileset in tilesets:
             tilesurface = pygame.image.load(tileset["image"]).convert_alpha()
             for y in range(0, tileset["imageheight"], 32):
@@ -324,7 +339,7 @@ class GameController():
         self.down = pygame.Rect(size, screen.height - size,
                                 screen.width - size * 2, size)
 
-        # color of controller
+        # color of controller.  It is hidden by default
         blue = (0, 0, 255)
 
         self.leftbutton = pygame.Surface(self.left.size)
