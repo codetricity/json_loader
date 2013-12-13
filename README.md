@@ -11,7 +11,7 @@ or rotate that requires two finger touch.
 
 Click on the link below to see a video of the lesson's example code .
 
-    * [Running on a Samsung Android phone] (http://youtu.be/tJ_O48oTpxk)
+* [Running on a Samsung Android phone] (http://youtu.be/tJ_O48oTpxk)
 
 The example was developed as part of the teaching curriculum for my 14 year old son.
 
@@ -92,13 +92,13 @@ parsing data, and mobile application development.
 My method is based on repetitive drills.  If you're a parent interested
 in my teaching methodology, you should watch my presentation on YouTube:
 
-    *[How to Teach Your Teenager Computer Programming](https://www.youtube.com/watch?v=re2oDDaNbTM)
+* [How to Teach Your Teenager Computer Programming](https://www.youtube.com/watch?v=re2oDDaNbTM)
 
 If you are a teenager interested in learning to program mobile
 applications on your Android phone, you should follow the process
 outlined on my YouTube channel
 
-    *[PyChildren YouTube Channel](https://www.youtube.com/user/surfkidsdad)
+* [PyChildren YouTube Channel](https://www.youtube.com/user/surfkidsdad)
 
 The process is:
 
