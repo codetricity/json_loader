@@ -9,9 +9,9 @@ This also handles the mapping of the mouse to the touchscreen.  pgs4a only
 handles single-point touch.   You won't be able to do things like two finger swipe
 or rotate that requires two finger touch.
 
-Click on the link below to see a video of the lesson's example code running on a Samsung Android phone.
+Click on the link below to see a video of the lesson's example code .
 
-    http://youtu.be/tJ_O48oTpxk
+    * [Running on a Samsung Android phone] (http://youtu.be/tJ_O48oTpxk)
 
 The example was developed as part of the teaching curriculum for my 14 year old son.
 
@@ -26,9 +26,9 @@ Usage
 To use this lesson, you will need:
 
 * Python
-* Pygame http://www.pygame.org/
-* Pygame Subset for Android http://pygame.renpy.org/
-* Tiled http://www.mapeditor.org/
+* [Pygame] (http://www.pygame.org/)
+* [Pygame Subset for Android] (http://pygame.renpy.org/)
+* [Tiled] (http://www.mapeditor.org/)
 
 
 
@@ -90,16 +90,15 @@ or Alice.  I wanted my son to start learning more about data structures,
 parsing data, and mobile application development.
 
 My method is based on repetitive drills.  If you're a parent interested
-in my teaching methodology, you should watch my presentation on
-"How to Teach Your Teenager Computer Programming."
+in my teaching methodology, you should watch my presentation on YouTube:
 
-    https://www.youtube.com/watch?v=re2oDDaNbTM
+    *[How to Teach Your Teenager Computer Programming](https://www.youtube.com/watch?v=re2oDDaNbTM)
 
 If you are a teenager interested in learning to program mobile
 applications on your Android phone, you should follow the process
 outlined on my YouTube channel
 
-    https://www.youtube.com/user/surfkidsdad
+    *[PyChildren YouTube Channel](https://www.youtube.com/user/surfkidsdad)
 
 The process is:
 
