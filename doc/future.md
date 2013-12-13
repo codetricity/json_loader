@@ -23,7 +23,7 @@ Lode Runner or Canabalt.
 For ideas, see:
 
 * [Lode Runner](http://www.loderunnerclassic.com/)
-* [Canabalt]()http://www.canabalt.com/)
+* [Canabalt](http://www.canabalt.com/)
 
 Prior to doing this, I would like to create a layer on the 2D tile map
 to find things like treasure, monsters, and bombs.
