@@ -20,6 +20,7 @@ http://pychildren.blogspot.com
 __author__ = 'craig'
 import pygame
 import json_loader
+from json_loader import *
 
 
 
