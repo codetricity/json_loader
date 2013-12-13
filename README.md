@@ -198,3 +198,10 @@ Screenshots of Game on Android Phone
 ------------------------------------
 ![Alt text][id]
 [id]: img/screenshot/screen_with_collision.png "Example game running with red tint on collision areas"
+
+
+Future
+------
+There's a scroller example and some ideas of what you can do with this in the future.
+
+* [Look in doc/](doc/future.md)
