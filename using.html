@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>json_loader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="json_loader test page on github using Twitter Bootstrap's Carousel -- using Bootstrap version 2.0.4">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <!-- Commented out - update these with your own files -->
+    <!-- 
+      <link rel="shortcut icon" href="ico/favicon.ico">
+      <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png"> 
+    -->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">json_loader</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Dropdown
+                      <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Item 1</a></li>
+                  <li><a href="#">Item 2</a></li>
+                </ul>
+              </li><!-- dropdown -->
+            </ul><!-- /.nav -->
+          </div><!--/.nav-collapse -->
+        </div><!-- /.container -->
+      </div><!-- /.navbar-inner -->
+    </div><!-- /.navbar -->
+
+
+<p>To use this lesson, you will need:</p>
+
+<ul>
+<li>Python</li>
+<li><a href="http://www.pygame.org/">Pygame</a></li>
+<li><a href="http://pygame.renpy.org/">Pygame Subset for Android</a></li>
+<li><a href="http://www.mapeditor.org/">Tiled</a></li>
+</ul><p>First, play around with the example program.  Have fun and understand the goal.
+Execute the sample program on your desktop with:</p>
+
+<pre><code>$ python main.py
+</code></pre>
+
+<p>Next, create your own maps with Tiled and play around with the loader.
+Show your friends, write your own game, extend the loader.
+Put the game on your Android  phone.  When you are ready, start building
+the JSON loader on your own using the steps listed below and this code
+as a reference.</p>
+
+<p>To edit the sample program:</p>
+
+<p>The ./img directory contains graphics for two characters, a boy and and girl.
+The girl is default.  To use the boy,</p>
+
+<p>change the line below</p>
+
+<pre><code>player_image_file = "img/girl.png"
+</code></pre>
+
+<p><a href="img/girl.png" target="_blank"><img src="img/girl.png" alt="alt text" title="Default character is a girl." style="max-width:100%;"></a></p>
+
+<p>to</p>
+
+<pre><code>player_filename = "img/boy.png"
+</code></pre>
+
+<p><a href="img/boy.png" target="_blank"><img src="img/boy.png" alt="alt text" title="Boy character is also available." style="max-width:100%;"></a></p>
+
+<p>Set TESTING to False to turn off red colored squares over collision
+objects.</p>
+
+<p>In main.py change the map file:</p>
+
+<pre><code>map_file ="maps/NAME_OF_YOUR_MAP_FILE.json"
+</code></pre>
+
+<p>Your map file must be in JSON format.  You must set the properties
+of the collision layer in your map file to "1".   All your tilesets must
+be in maps/tilesets.  I created a YouTube video on how to use
+Tiled to create the proper JSON map file.  See the YouTube channel
+if you need help.</p>
+
+<p>map.move(-200, 0) sets the initial position of the player
+when the game starts.  If you set this to [0, 0], the player will be
+in the upper left-hand quadrant of your map.  Use negative values to
+start the player to the right on the map or down on the map.</p>
