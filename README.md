@@ -9,9 +9,9 @@ This also handles the mapping of the mouse to the touchscreen.  pgs4a only
 handles single-point touch.   You won't be able to do things like two finger swipe
 or rotate that requires two finger touch.
 
-Click on the link below to see a video of the lesson's example code .
+Click on the link below to see a video of the lesson's example code.
 
-* [Running on a Samsung Android phone] (http://youtu.be/tJ_O48oTpxk)
+* [Running on a Samsung Android phone](http://youtu.be/tJ_O48oTpxk)
 
 The example was developed as part of the teaching curriculum for my 14 year old son.
 
@@ -26,9 +26,9 @@ Usage
 To use this lesson, you will need:
 
 * Python
-* [Pygame] (http://www.pygame.org/)
-* [Pygame Subset for Android] (http://pygame.renpy.org/)
-* [Tiled] (http://www.mapeditor.org/)
+* [Pygame](http://www.pygame.org/)
+* [Pygame Subset for Android](http://pygame.renpy.org/)
+* [Tiled](http://www.mapeditor.org/)
 
 
 
