@@ -196,7 +196,7 @@ Steps to build a 2D tile map loader
 
 Screenshots of Game on Android Phone
 ------------------------------------
-![screenshot](img/screenshot/screen_with_collision.png "Example game running with red tint on collision areas)
+![screenshot](img/screenshot/screen_with_collision.png)
 
 
 Future
