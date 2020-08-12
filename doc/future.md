@@ -14,8 +14,7 @@ I've included a scroller example.  Run it with
 
     $ python scroller_example.py
 
-![Alt text][id]
-[id]: img/scroller.png "Example scroller game"
+![Example scroller game](img/scroller.png) 
 
 It would be a cool project to make something like a simplified 
 Lode Runner or Canabalt.
